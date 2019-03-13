@@ -1,13 +1,41 @@
+var serviceAddress ="index.php";
+var topImageContainer = "#topImage";
+
+var allPictures =[];
+var dayPictures = [];
+var days = [];
+
 function displayFirstPicture(){
-  $.getJSON( "index.php", { action: "getFirstPicture" } )
+  $.getJSON( serviceAddress, { action: "getFirstPicture" } )
     .done(function( json ) {
-      console.log( "JSON Data: " + json.name );
+      console.log( "JSON FirstPicture: " + json.name );
       $("<img />").attr("src", json.name);
-      $("#topImage").attr("src",json.name);
-      $("#topImage").fadeIn("slow");
+      $(topImageContainer).attr("src",json.name);
+      $(topImageContainer).fadeIn("slow");
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
       console.log( "Request Failed: " + err );
   });
+}
+
+function getAvailableDays(){
+    $.getJSON( serviceAddress, { action: "getAvailableDays" } )
+       .done(function( json ) {
+      console.log( "JSON getAvailableDays: ");           
+        $.each(json, function (key, val) {
+            days.push(key);
+            console.log("day: "+key+" pictures: "+val);
+        });     
+        console.log("Days count: "+days.length);
+       })
+       .fail(function( jqxhr, textStatus, error ) {
+         var err = textStatus + ", " + error;
+         console.log( "Request Failed: " + err );
+     });    
+ }
+
+function initTilacam(){
+    displayFirstPicture();
+    getAvailableDays();
 }
