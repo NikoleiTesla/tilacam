@@ -4,6 +4,8 @@ var topImageContainer = "#topImage";
 var allPictures =[];
 var dayPictures = [];
 var days = [];
+var currentDay = 0;
+var currentPicture = 0;
 
 function displayFirstPicture(){
   $.getJSON( serviceAddress, { action: "getFirstPicture" } )
@@ -34,6 +36,7 @@ function getAvailableDays(){
          console.log( "Request Failed: " + err );
      });    
  }
+ 
 
 function initTilacam(){
     displayFirstPicture();
