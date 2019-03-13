@@ -17,6 +17,10 @@ DebugMessage("First Picture to display ".$pp->getFirstPicture()->webPath);
 DebugMessage('<img src="http://'.$pp->getFirstPicture()->webPath.'">');
 DebugMessage($_REQUEST);
 
+//initialization in global scope to avoid errors
+$action="";
+$day="";
+
 if(array_key_exists('action',$_REQUEST))
   $action = strip_tags($_REQUEST['action']);
 if(array_key_exists('day',$_REQUEST))
