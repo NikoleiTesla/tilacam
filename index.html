@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<!-- Just for Testing real UI needs to be implemented -->
+
 <html>
-    <head>
-        <meta http-equiv="Pragma" content="no-cache"/>      
+    <head> 
         <title>Tilacam</title>
         <link rel="stylesheet" href="css/imagePlayer.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -11,5 +12,11 @@
         <div id="imagePlayer" class="imagePlayerContainer">
             <img id="topImage">
         </div>
+        <div>
+            <button id="playTilacamButton" name="play" onclick="tilacamPlay()">Play</button>
+        </div>
+        <div>
+            <button id="stopTilacamButton" name="play" onclick="tilacamStop()">Stop</button>
+        </div>        
     </body>
 </html>
