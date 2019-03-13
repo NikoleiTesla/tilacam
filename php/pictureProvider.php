@@ -17,21 +17,29 @@ class PictureProvider
 
   public function getAllPictures(){
     $pics = glob($this->getPictureDir().'/*');
+    $picturesToSort = array();
     if(count($pics) == 0){
       throw new Exception("Fehler im Bilder Ordner ".$this->getPictureDir()." wurden keine Bider gefunden!");
     }
     foreach ($pics as $p) {
       $picture = new Picture($p);
       if($this->IsValidTime($picture)){
-        $aDay = date_format($picture->dateTime,  $this->dayDateFormat);
-        if (!array_key_exists($aDay,$this->days))
-          $this->days[$aDay]=0;
-        $this->days[$aDay]+=1;
-        array_push($this->pictures,$picture);
+         $picturesToSort[$picture->timestamp] = $picture;
       }
     }
+    //Sort Pictures by acutal timestamp not filename
+    ksort($picturesToSort);
+    foreach ($picturesToSort as $key => $value) {
+        array_push($this->pictures,$value);
+        $aDay = date_format($value->dateTime,  $this->dayDateFormat);        
+        if (!array_key_exists($aDay, $this->days)) {
+                $this->days[$aDay] = 0;
+        }
 
-    return $this->pictures;
+        $this->days[$aDay]+=1;        
+    }
+      
+     return $this->pictures;
   }
 
   public function getPicturesForDay($day){
