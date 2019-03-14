@@ -11,12 +11,19 @@ var pictureDelay=1000;
 var started=false;
 var globalSlider = 0;
 var timer = null;
-
+var firstImage;
+var picturesWidth;
+var picturesHeight;
 
 function displayFirstPicture(){
   $.getJSON( serviceAddress, { action: "getFirstPicture" } )
     .done(function( json ) {
       console.log( "JSON FirstPicture: " + json.name );
+      firstImage = new Image();
+      firstImage.src = json.name;
+      picturesHeight = firstImage.naturalHeight;
+      picturesWidth = firstImage.naturalWidth;
+      fitPicture();
       $("<img />").attr("src", json.name);
       $(topImageContainer).attr("src",json.name);
       $(topImageContainer).fadeIn("slow");
@@ -111,3 +118,32 @@ function initTilacam(){
     displayFirstPicture();
     getAvailableDays();
 }
+
+//Resize container to picture
+
+window.addEventListener("resize", fitPicture);
+
+function fitPicture() {
+  var originalRatio = picturesWidth / picturesHeight;  
+  console.log("Orig Picture x"+picturesWidth+" y "+picturesHeight+" ratio "+originalRatio);    
+  var windowWidth = window.innerWidth;
+  var windowHeight = window.innerHeight;
+   console.log("Viewport width Picture x"+windowWidth+" y "+windowHeight);  
+  var newWidth;
+  var newHeight;
+  if(windowWidth >= windowHeight*originalRatio){
+      newHeight = windowHeight;
+      newWidth = Math.floor(windowHeight*originalRatio);      
+  } else {
+      newWidth = windowWidth;
+      newHeight = Math.floor(windowWidth/originalRatio);          
+  }
+    
+  $("#topImage").css("height",newHeight);
+  $("#topImage").css("width",newWidth);
+  $("#sizeDiv").css("height",newHeight);
+  $("#sizeDiv").css("width",newWidth);
+  
+  
+  console.log("picture resized to: x"+newWidth+" y "+newHeight);
+ }

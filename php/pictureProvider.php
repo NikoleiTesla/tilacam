@@ -79,11 +79,6 @@ class PictureProvider
 
   }
 
-
-
-
-
-
   function getPictureDir(){
     Global $config_pictureDir;
 
