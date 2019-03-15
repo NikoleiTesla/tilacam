@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- Alternative GUI -->
+<html>
+    <head>
+        <title>Tilacam</title>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">
+        <link rel="stylesheet" href="css/global.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="js/imagePlayernoresize.js"></script>
+    </head>
+    <body onload="initTilacam()">
+      <header>
+        <p><span>Tilacam</span> - your personal webcam player</p></header>
+      <main>
+        <div id="imagePlayer">
+            <img id="topImage" src="">
+            <div id="controlPlayer">
+                <button id="playTilacamButton" name="play" onclick="tilacamPlay()">Play</button>
+                <button id="stopTilacamButton" name="stop" onclick="tilacamStop()">Stop</button>
+            </div>
+
+        </div>
+      </main>
+     <footer>&copy; <?php echo date("Y"); ?> All rights reserved. <a href="#">Impressum</a> | <a href="#">Datenschutz</a></footer>
+    </body>
+</html>
