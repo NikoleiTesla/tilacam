@@ -1,6 +1,6 @@
 <?php
-require_once("php/config.php");
-require_once("php/pictureProvider.php");
+require_once("./php/config.php");
+require_once("./php/pictureProvider.php");
 
 $actionAvailableDays = "getAvailableDays";
 $actionAllPictures = "getAllPictures";
@@ -52,7 +52,6 @@ foreach($days as $key => $val){
 }
 */
 
-
 function jsonOutput($object){
   $result = json_encode($object);
   DebugMessage("Json encode: ".$result);
@@ -73,6 +72,5 @@ function DebugMessage($message){
     echo " -debug: ".$message.'<br>';
   }
 }
-
 
  ?>
