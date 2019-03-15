@@ -7,6 +7,8 @@
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no">        
         <link rel="stylesheet" href="css/imagePlayer.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>          
+        <script src="js/rangeslider.js"></script>                    
         <script src="js/imagePlayer.js"></script>
     </head>
     <body onload="initTilacam()">
@@ -16,6 +18,9 @@
             <div id="controlPlayer">
                 <button id="playTilacamButton" name="play" onclick="tilacamPlay()">Play</button>
                 <button id="stopTilacamButton" name="stop" onclick="tilacamStop()">Stop</button>
+                <div class="rangeslider-wrap">          
+                   <input id="timeSlider" type="range" min="0" max="100" step="1" value="1">       
+                </div>                
             </div>        
          </div>
         </div>
