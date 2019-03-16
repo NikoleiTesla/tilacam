@@ -1,12 +1,13 @@
 var serviceAddress ="index.php";
 var topImageContainer = "#topImage";
+var bottomImageContainer = "#bottomImage";
 
 var allPictures = [];
 var dayPictures = [];
 var days = [];
 var currentDay = 0;
 var currentPicture = 0;
-var pictureDelay=1000;
+var pictureDelay=1500;
 
 var started=false;
 var globalSlider = 0;
@@ -14,6 +15,8 @@ var timer = null;
 var firstImage;
 var picturesWidth=1920;
 var picturesHeight=1080;
+
+var opc=0;
 
 function displayFirstPicture(){
   $.getJSON( serviceAddress, { action: "getFirstPicture" } )
@@ -104,8 +107,19 @@ function playSlider(){
 }
 
 function displayImage(){
+    if(opc > 0){
+        if(opc %2 === 0){
+            $(bottomImageContainer).attr('src',dayPictures[currentPicture].name);
+            $(bottomImageContainer).addClass('fadein');
+        } else  {
+            $(topImageContainer).attr('src',dayPictures[currentPicture].name);
+            $(bottomImageContainer).removeClass('fadein');     
+        }
+    }
+    
     console.log("Play Picture "+currentPicture+" "+dayPictures[currentPicture].name);
-    $(topImageContainer).attr('src',dayPictures[currentPicture].name);    
+ 
+    opc++;
 }
 
 function changeDay(){
@@ -209,8 +223,11 @@ function fitPicture() {
       newHeight = Math.floor(windowWidth/originalRatio);          
   }
     
-  $("#topImage").css("height",newHeight);
-  $("#topImage").css("width",newWidth);
+  $(topImageContainer).css("height",newHeight);
+  $(topImageContainer).css("width",newWidth);
+  $(bottomImageContainer).css("height",newHeight);
+  $(bottomImageContainer).css("width",newWidth);
+    
   $("#sizeDiv").css("height",newHeight);
   $("#sizeDiv").css("width",newWidth);
   
