@@ -215,7 +215,7 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
- 
+
         this.$window            = $(window);
         this.$document          = $(document);
         this.$element           = $(element);
@@ -247,7 +247,7 @@
 
         // visually hide the input
         this.$element.css({
-            'position': 'absolute',
+            //'position': 'absolute',
             'width': '1px',
             'height': '1px',
             'overflow': 'hidden',
