@@ -247,11 +247,7 @@
 
         // visually hide the input
         this.$element.css({
-            //'position': 'absolute',
-            'width': '1px',
-            'height': '1px',
-            'overflow': 'hidden',
-            'opacity': '0'
+            'display': 'none'
         });
 
         // Store context

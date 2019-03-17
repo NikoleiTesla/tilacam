@@ -138,6 +138,17 @@ function tilacamStop(){
     stop();
 }
 
+function togglePlay(){
+    if(started){
+        $("#playPause").html("play_arrow");
+        stop();
+    } else {
+        $("#playPause").html("pause");        
+        start();
+    }
+}
+
+
 function initTilacam(){
     displayFirstPicture();
     getAvailableDays();
@@ -191,6 +202,9 @@ function initSlider(){
           var picture = dayPictures[value-1];
           var timeText = picture.hour+':'+picture.minute;
           $handle.text(timeText);
+          var lastPicture = dayPictures[dayPictures.length-1];
+          var totalText = lastPicture.hour+':'+lastPicture.minute;
+          $("#pictureInfo").text(timeText +' / '+totalText);
         },
 
         // Callback function
