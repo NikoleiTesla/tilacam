@@ -18,6 +18,7 @@ var picturesWidth = 1920;
 var picturesHeight = 1080;
 
 var imageBuffer = [];
+var isFullscreen = false;
 
 var opc = 0;
 
@@ -201,7 +202,6 @@ function togglePlay() {
     }
 }
 
-
 function initTilacam() {
     displayFirstPicture();
     getAvailableDays();
@@ -275,20 +275,23 @@ function initSlider() {
 }
 
 function toggleFullScreen() {
+    var element = document.getElementById('imagePlayer');
     if (!document.fullscreenElement && // alternative standard method
             !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
         $("#fullscreenToggle").text("fullscreen_exit");
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.msRequestFullscreen) {
-            document.documentElement.msRequestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        isFullscreen=true;
+        if (element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if (element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
         }
     } else {
         $("#fullscreenToggle").text("fullscreen");
+        isfullscreen=false;
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.msExitFullscreen) {
@@ -299,9 +302,8 @@ function toggleFullScreen() {
             document.webkitExitFullscreen();
         }
     }
+    fitPicture();    
 }
-
-//Resize container to picture
 
 window.addEventListener("resize", fitPicture);
 
@@ -310,7 +312,9 @@ function fitPicture() {
     // console.log("Orig Picture x"+picturesWidth+" y "+picturesHeight+" ratio "+originalRatio);    
     var windowWidth = window.innerWidth;
     var windowHeight = window.innerHeight;
-    //  console.log("Viewport width Picture x"+windowWidth+" y "+windowHeight);  
+
+    
+     console.log("Viewport width Picture x"+windowWidth+" y "+windowHeight);  
     var newWidth;
     var newHeight;
     if (windowWidth >= windowHeight * originalRatio) {
@@ -328,7 +332,11 @@ function fitPicture() {
 
     $("#sizeDiv").css("height", newHeight);
     $("#sizeDiv").css("width", newWidth);
-
-
-    // console.log("picture resized to: x"+newWidth+" y "+newHeight);
 }
+
+var supportsOrientationChange = "onorientationchange" in window,
+    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+window.addEventListener(orientationEvent, function() {
+    fitPicture();
+}, false);

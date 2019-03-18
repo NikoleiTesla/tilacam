@@ -14,15 +14,15 @@ padding-bottom: 4px;
 .rangeslider__handle {
   transition: background-color .2s;
   box-sizing: border-box;
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   border-radius: 100%;
   background-color: red;
   cursor: pointer;
   display: inline-block;
   position: absolute;
   z-index: 10;
-  top: -8px;
+  top: -5px;
 }
 .rangeslider__handle__value {
   transition: opacity 0.5s;
@@ -49,7 +49,7 @@ padding-bottom: 4px;
   z-index: 1;
   height: 100%;
   background-color: rgba(255,0,0,0.85);
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .rangeslider.rangeslider--active .rangeslider__handle__value {
