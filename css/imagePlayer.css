@@ -13,6 +13,12 @@ html, body {
     padding: 0;
     border: 0;
     overflow:hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;    
 }
 
 #imagePlayer {
@@ -90,34 +96,59 @@ html, body {
 
 #pictureInfo{
     color:white;
-    font-size: 12px;
+    font-size: 14px;
     height:18px;
     padding-top: 20px;  
     padding-left: 45px;
+    -webkit-font-smoothing: antialiased;   
 } 
 
-.navigateContainer {
+.navContainer {
     position: absolute;
-    display: inline-block;    
-    width: 50px;
-    background: rgba(0,0,0,0.5);
+    width: 15%;
     text-align: center;
     z-index: 4;
-    color:white;
-    padding-top: 10px;
-    line-height: 50px;    
+    height: 100%;   
+    cursor: pointer;
+    transition: 0.3s;
+    transition-delay: 0.6s;
 }
+.navContainer:hover{
+    background: rgba(0,0,0,0.1);    
+}
+
+
+.navIconContainer {
+    text-align: center;
+    position: relative;
+    top: calc(50% - 35px);
+    display: inline-block;
+}
+
+.tilaLeft{
+    left:0px;
+    text-align: left;
+    padding-left: 10px;    
+}
+
+.tilaRight{
+    right:0px;
+    text-align: right;
+    padding-right: 10px;
+}
+
 
 .navigationIcons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
     color:white;
-    font-size: 50px;
+    font-size: 70px;
     letter-spacing: normal;
     text-transform: none;
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
     cursor: pointer;
+  -webkit-text-stroke: 2px black;   
 }
