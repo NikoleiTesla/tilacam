@@ -9,10 +9,10 @@ and open the template in the editor.
 */
 
 html, body {
-	margin: 0;
-	padding: 0;
-	border: 0;
-        overflow:hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow:hidden;
 }
 
 #imagePlayer {
@@ -50,19 +50,19 @@ html, body {
 }
 
 #controlPlayer {
-  position:absolute;
-  bottom: 0em;
-  height: 75px;
-  width: 100%;
-  text-align: left;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
-  z-index: 5;
- }
+    position:absolute;
+    bottom: 0em;
+    height: 75px;
+    width: 100%;
+    text-align: left;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.85) 100%);
+    z-index: 5;
+}
 
- .cp-table{
-     display: table;     
- } 
- 
+.cp-table{
+    display: table;     
+} 
+
 .cp-row {
     display: table-row; 
 }
@@ -94,4 +94,30 @@ html, body {
     height:18px;
     padding-top: 20px;  
     padding-left: 45px;
- } 
+} 
+
+.navigateContainer {
+    position: absolute;
+    display: inline-block;    
+    width: 50px;
+    background: rgba(0,0,0,0.5);
+    text-align: center;
+    z-index: 4;
+    color:white;
+    padding-top: 10px;
+    line-height: 50px;    
+}
+
+.navigationIcons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    color:white;
+    font-size: 50px;
+    letter-spacing: normal;
+    text-transform: none;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+}

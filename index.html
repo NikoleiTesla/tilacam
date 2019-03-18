@@ -18,6 +18,8 @@
             <div id="sizeDiv">
                 <img id="topImage" src="empty.gif">
                 <img id="bottomImage" src="empty.gif">
+                <div class="navigateContainer" style="left: 0px"><i class="navigationIcons">navigate_before</i></div>
+                <div class="navigateContainer" style="right: 0px"><i class="navigationIcons">navigate_next</i></div>
                 <div id="controlPlayer">
                     <div id="pictureInfo">info</div>
                     <div class="cp-table" style="width: 100%">
@@ -34,7 +36,7 @@
                                 <i class="tc-materialIcons">more_vert</i>
                             </div>
                             <div class="cp-cell">
-                                <i class="tc-materialIcons" onclick="toggleFullScreen()">fullscreen</i>
+                                <i id="fullscreenToggle" class="tc-materialIcons" onclick="toggleFullScreen()">fullscreen</i>
                             </div>
                         </div>
                     </div>
