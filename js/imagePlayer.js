@@ -1,4 +1,4 @@
-var serviceAddress ="index.php";
+var serviceAddress ="main.php";
 var topImageContainer = "#topImage";
 var bottomImageContainer = "#bottomImage";
 
@@ -15,6 +15,8 @@ var timer = null;
 var firstImage;
 var picturesWidth=1920;
 var picturesHeight=1080;
+
+var imageBuffer = [];
 
 var opc=0;
 
@@ -59,6 +61,7 @@ function getPicturesForCurrentDay(){
     if(isStarted)
         stop();
     dayPictures = [];
+    imageBuffer = [];   
     var day = days[currentDay];
     $.getJSON( serviceAddress, { action: "getPicturesForDay",day: day } )
        .done(function( json ) {
@@ -79,11 +82,11 @@ function getPicturesForCurrentDay(){
 }
 
 function tick() {
-    playSlider();
     start();        // restart the timer
 };
 
 function start() {  // use a one-off timer
+    playSlider();    
     timer = setTimeout(tick, pictureDelay);
     started = true;
 };
@@ -101,8 +104,7 @@ function playSlider(){
         return;
 
     $('#timeSlider').val(currentPicture+1).change();    
-    console.log("Play Picture "+currentPicture+" "+dayPictures[currentPicture].name);
-    displayImage();
+     displayImage();
     currentPicture++;
 }
 
@@ -140,10 +142,10 @@ function tilacamStop(){
 
 function togglePlay(){
     if(started){
-        $("#playPause").html("play_arrow");
+        $("#playPause").text("play_arrow");
         stop();
     } else {
-        $("#playPause").html("pause");        
+        $("#playPause").text("pause");        
         start();
     }
 }
@@ -204,7 +206,11 @@ function initSlider(){
           $handle.text(timeText);
           var lastPicture = dayPictures[dayPictures.length-1];
           var totalText = lastPicture.hour+':'+lastPicture.minute;
-          $("#pictureInfo").text(timeText +' / '+totalText);
+          var pictureDate = dayPictures[currentPicture].formatedDateTime;
+          var pd = new Date(pictureDate);
+          var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          var dateText = pd.toLocaleDateString("de-AT",dateOptions);
+          $("#pictureInfo").text(dateText+' '+timeText +' / '+totalText);
         },
 
         // Callback function
@@ -215,6 +221,31 @@ function initSlider(){
                start();        
         }
     });
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document.documentElement.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    } else if (document.documentElement.mozRequestFullScreen) {
+      document.documentElement.mozRequestFullScreen();
+    } else if (document.documentElement.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
 }
 
 //Resize container to picture
