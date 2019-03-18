@@ -14,31 +14,31 @@
         <script src="js/imagePlayer.js"></script>
     </head>
     <body onload="initTilacam()">
-        <div id="imagePlayer">       
+        <div id="imagePlayer">
             <div id="sizeDiv">
                 <img id="topImage" src="empty.gif">
                 <img id="bottomImage" src="empty.gif">
                 <div id="controlPlayer">
                     <div id="pictureInfo">info</div>
                     <div class="cp-table" style="width: 100%">
-                        <div class="cp-row"> 
-                            <div class="cp-cell">    
+                        <div class="cp-row">
+                            <div class="cp-cell">
                                 <i id="playPause" class="tc-materialIcons" onclick="togglePlay()">play_arrow</i>
-                            </div> 
-                            <div class="cp-cell" style="width: 100%"> 
-                                <div class="rangeslider-wrap">
-                                    <input id="timeSlider" type="range" min="1" max="100" step="1" value="1">                                        
-                                </div>
-                            </div>     
-                            <div class="cp-cell">    
-                                <i class="tc-materialIcons">menu</i>                
                             </div>
-                            <div class="cp-cell">    
-                                <i class="tc-materialIcons" onclick="toggleFullScreen()">fullscreen</i>                
-                            </div>                            
+                            <div class="cp-cell" style="width: 100%">
+                                <div class="rangeslider-wrap">
+                                    <input id="timeSlider" type="range" min="1" max="100" step="1" value="1">
+                                </div>
+                            </div>
+                            <div class="cp-cell">
+                                <i class="tc-materialIcons">more_vert</i>
+                            </div>
+                            <div class="cp-cell">
+                                <i class="tc-materialIcons" onclick="toggleFullScreen()">fullscreen</i>
+                            </div>
                         </div>
-                    </div> 
-                </div>  
+                    </div>
+                </div>
             </div>
         </div>
     </body>
