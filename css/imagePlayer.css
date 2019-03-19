@@ -77,7 +77,7 @@ html, body {
     vertical-align: middle;
 }
 
-.tc-materialIcons {
+.tilaIcons {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
@@ -94,6 +94,7 @@ html, body {
 }
 
 #pictureInfo{
+    font-family: 'Fire Sans', sans-serif;    
     color:white;
     font-size: 14px;
     height:18px;
@@ -134,6 +135,42 @@ html, body {
     text-align: right;
     padding-right: 10px;
 }
+
+.tilaMenu{   
+   position: absolute;
+   right: 15px;
+   bottom: 40px;
+   background: rgba(0,0,0,0.6);
+   color: white;
+   text-align: left;
+   z-index: 15;
+   padding-top:4px;
+   padding-bottom: 4px;
+   height: 1px;
+   width: 250px;
+   opacity: 0;
+   overflow:hidden;
+   transition: 0.3s;
+   
+}
+
+.tilaMenuShow{
+   height: 150px;
+   opacity: 1;
+}
+
+.tilaMenuItem{
+   padding: 8px 10px;
+   font-family: 'Fire Sans', sans-serif;   
+   font-size: 16px;   
+
+   -webkit-font-smoothing: antialiased; 
+}
+
+.tilaMenuItem:hover{
+    background: rgba(255,255,255,0.15);
+}
+
 
 .navigationIcons {
     font-family: 'Material Icons';

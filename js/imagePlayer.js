@@ -202,6 +202,11 @@ function togglePlay() {
     }
 }
 
+function toggleMenu() {
+     $("#moreMenu").toggleClass("tilaMenuShow");
+}
+
+
 function initTilacam() {
     displayFirstPicture();
     getAvailableDays();

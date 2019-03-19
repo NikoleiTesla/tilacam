@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="css/imagePlayer.css"/>
         <link rel="stylesheet" href="css/rangeslider.css"/>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Fira+Sans|Lilita+One" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script src="js/rangeslider.js"></script>
@@ -25,21 +25,27 @@
                     <div class="cp-table" style="width: 100%">
                         <div class="cp-row">
                             <div class="cp-cell">
-                                <i id="playPause" class="tc-materialIcons" onclick="togglePlay()">play_arrow</i>
+                                <i id="playPause" class="tilaIcons" onclick="togglePlay()">play_arrow</i>
                             </div>
                             <div class="cp-cell" style="width: 100%">
                                 <div class="rangeslider-wrap">
                                     <input id="timeSlider" type="range" min="1" max="100" step="1" value="1">
                                 </div>
                             </div>
-                            <div class="cp-cell">
-                                <i class="tc-materialIcons">more_vert</i>
+                            <div class="cp-cell" onclick="toggleMenu()">
+                                <i class="tilaIcons">more_vert</i>
                             </div>
                             <div class="cp-cell">
-                                <i id="fullscreenToggle" class="tc-materialIcons" onclick="toggleFullScreen()">fullscreen</i>
+                                <i id="fullscreenToggle" class="tilaIcons" onclick="toggleFullScreen()">fullscreen</i>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="moreMenu" class="tilaMenu">
+                    <div class="tilaMenuItem">Tag &auml;ndern</div>  
+                    <div class="tilaMenuItem">Geschwindigkeit</div>
+                    <div class="tilaMenuItem">Download</div>
+                    <div class="tilaMenuItem">Film erstellen</div>
                 </div>
             </div>
         </div>
