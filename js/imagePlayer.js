@@ -206,8 +206,7 @@ function togglePlay() {
 function showDatePicker(){
     if(tilaDatePicker === undefined)
         tilaDatePicker = $( "#tilaHiddenDate" ).datepicker();
-    tilaDatePicker.
-    
+    tilaDatePicker.show();    
 }
 
 function toggleMenu() {
