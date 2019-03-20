@@ -19,6 +19,7 @@ var picturesHeight = 1080;
 
 var imageBuffer = [];
 var isFullscreen = false;
+var tilaDatePicker;
 
 var opc = 0;
 
@@ -200,6 +201,13 @@ function togglePlay() {
         $("#playPause").text("pause");
         start();
     }
+}
+
+function showDatePicker(){
+    if(tilaDatePicker === undefined)
+        tilaDatePicker = $( "#tilaHiddenDate" ).datepicker();
+    tilaDatePicker.
+    
 }
 
 function toggleMenu() {

@@ -7,11 +7,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="css/imagePlayer.css"/>
         <link rel="stylesheet" href="css/rangeslider.css"/>
+        <link rel="stylesheet" href="css/jquery-ui.css"/>        
+        
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Fira+Sans|Lilita+One" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/i18n/jquery-ui-i18n.min.js"></script>
+        
         <script src="http://d3js.org/d3.v3.min.js"></script>
+        
         <script src="js/rangeslider.js"></script>
         <script src="js/imagePlayer.js"></script>
+        <script src="js/jquery-ui.js"></script>       
+        <script src="js/datepicker-de.js"></script>
+        
     </head>
     <body onload="initTilacam()">
         <div id="imagePlayer">
@@ -42,7 +50,7 @@
                     </div>
                 </div>
                 <div id="moreMenu" class="tilaMenu">
-                    <div class="tilaMenuItem">Tag &auml;ndern</div>  
+                    <div class="tilaMenuItem" onclick="showDatePicker()">Tag &auml;ndern<input id="tilaHiddenDate" type="text" style="display: none"></div>  
                     <div class="tilaMenuItem">Geschwindigkeit</div>
                     <div class="tilaMenuItem">Download</div>
                     <div class="tilaMenuItem">Film erstellen</div>
