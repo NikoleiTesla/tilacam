@@ -204,13 +204,45 @@ function togglePlay() {
 }
 
 function showDatePicker(){
-    if(tilaDatePicker === undefined)
-        tilaDatePicker = $( "#tilaHiddenDate" ).datepicker();
-    tilaDatePicker.show();    
+    var currentDate = new Date(days[currentDay]);
+    console.log('Set Datepicker to current Day: '+currentDate.toString());
+    if(tilaDatePicker === undefined){
+        tilaDatePicker = $( "#tilaHiddenDate" ).datepicker({
+        language: 'de',
+        startDate: currentDate,
+        onRenderCell: function (date, cellType) {
+            var currentDate = date.getDate();
+            //console.log('Render cell '+date.toString()+' cell Type'+cellType);
+        },
+        onSelect: function onSelect(fd, date) {
+            console.log('Select Cell '+fd);
+            tilaSetDate(date);
+            tilaDatePicker.data('datepicker').hide();   
+        } 
+        });      
+    }
+    tilaDatePicker.data('datepicker').selectDate(currentDate);
+    tilaDatePicker.data('datepicker').show();   
+}
+
+function tilaSetDate(date){
+    console.log('Select Day');
+    for (let i=0; i<days.length; i++) {
+      var compareDate = new Date(days[i]);
+      if(compareDate.getDay() === date.getDay() &&
+         compareDate.getMonth() === date.getMonth() &&
+         compareDate.getFullYear() === date.getFullYear()){
+          currentDay = i;
+          console.log('Found day'+i);
+          changeDay("set");
+      }
+    }
+    
 }
 
 function toggleMenu() {
      $("#moreMenu").toggleClass("tilaMenuShow");
+        
 }
 
 
