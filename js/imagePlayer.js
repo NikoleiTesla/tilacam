@@ -212,7 +212,9 @@ function showDatePicker(){
         startDate: currentDate,
         onRenderCell: function (date, cellType) {
             var currentDate = date.getDate();
-            //console.log('Render cell '+date.toString()+' cell Type'+cellType);
+            if(tilaIsDateAvailable(date)){
+                return {html: currentDate + '<span class="dp-note"></span>'};
+            }
         },
         onSelect: function onSelect(fd, date) {
             console.log('Select Cell '+fd);
@@ -221,7 +223,8 @@ function showDatePicker(){
         } 
         });      
     }
-    tilaDatePicker.data('datepicker').selectDate(currentDate);
+    hideTilaMenu();
+    tilaDatePicker.data('datepicker').selectDate(currentDate);    
     tilaDatePicker.data('datepicker').show();   
 }
 
@@ -229,22 +232,41 @@ function tilaSetDate(date){
     console.log('Select Day');
     for (let i=0; i<days.length; i++) {
       var compareDate = new Date(days[i]);
-      if(compareDate.getDay() === date.getDay() &&
+      if(compareDate.getDate() === date.getDate() &&
          compareDate.getMonth() === date.getMonth() &&
          compareDate.getFullYear() === date.getFullYear()){
           currentDay = i;
           console.log('Found day'+i);
           changeDay("set");
+          return;
       }
+    }    
+}
+
+function tilaIsDateAvailable(date){
+  if(!(date instanceof Date))
+      return false;
+
+  for (let i=0; i<days.length; i++) {
+      
+      var compareDate = new Date(days[i]);
+      if(compareDate.getDate() === date.getDate() &&
+         compareDate.getMonth() === date.getMonth() &&
+         compareDate.getFullYear() === date.getFullYear()){
+         console.log("!Date available "+date.toString());
+            return true;
+        }
     }
-    
+    return false;    
+}
+
+function hideTilaMenu(){
+    $("#moreMenu").removeClass('tilaMenuShow');    
 }
 
 function toggleMenu() {
-     $("#moreMenu").toggleClass("tilaMenuShow");
-        
+     $("#moreMenu").toggleClass("tilaMenuShow");        
 }
-
 
 function initTilacam() {
     displayFirstPicture();

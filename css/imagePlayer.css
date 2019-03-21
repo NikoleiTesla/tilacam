@@ -97,10 +97,10 @@ html, body {
     font-family: 'Fire Sans', sans-serif;    
     color:white;
     font-size: 14px;
-    height:18px;
     padding-top: 20px;  
     padding-left: 45px;
     -webkit-font-smoothing: antialiased;   
+    cursor: pointer;
 } 
 
 .navContainer {
@@ -150,8 +150,8 @@ html, body {
    width: 250px;
    opacity: 0;
    overflow:hidden;
-   transition: 0.3s;
-   
+   transition: 0.4s ease;
+   border-radius: 4px;
 }
 
 .tilaMenuShow{
@@ -163,14 +163,12 @@ html, body {
    padding: 8px 10px;
    font-family: 'Fire Sans', sans-serif;   
    font-size: 16px;   
-
    -webkit-font-smoothing: antialiased; 
 }
 
 .tilaMenuItem:hover{
     background: rgba(255,255,255,0.15);
 }
-
 
 .navigationIcons {
     font-family: 'Material Icons';

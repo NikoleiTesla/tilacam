@@ -6,7 +6,6 @@
         containerBuilt = false,
         baseTemplate = '' +
             '<div class="datepicker">' +
-            '<i class="datepicker--pointer"></i>' +
             '<nav class="datepicker--nav"></nav>' +
             '<div class="datepicker--content"></div>' +
             '</div>',
@@ -745,62 +744,12 @@
         },
 
         setPosition: function (position) {
-            position = position || this.opts.position;
-
-            var dims = this._getDimensions(this.$el),
-                selfDims = this._getDimensions(this.$datepicker),
-                pos = position.split(' '),
-                top, left,
-                offset = this.opts.offset,
-                main = pos[0],
-                secondary = pos[1];
-
-            switch (main) {
-                case 'top':
-                    top = dims.top - selfDims.height - offset;
-                    break;
-                case 'right':
-                    left = dims.left + dims.width + offset;
-                    break;
-                case 'bottom':
-                    top = dims.top + dims.height + offset;
-                    break;
-                case 'left':
-                    left = dims.left - selfDims.width - offset;
-                    break;
-            }
-
-            switch(secondary) {
-                case 'top':
-                    top = dims.top;
-                    break;
-                case 'right':
-                    left = dims.left + dims.width - selfDims.width;
-                    break;
-                case 'bottom':
-                    top = dims.top + dims.height - selfDims.height;
-                    break;
-                case 'left':
-                    left = dims.left;
-                    break;
-                case 'center':
-                    if (/left|right/.test(main)) {
-                        top = dims.top + dims.height/2 - selfDims.height/2;
-                    } else {
-                        left = dims.left + dims.width/2 - selfDims.width/2;
-                    }
-            }
-
-            this.$datepicker
-                .css({
-                    left: left,
-                    top: top
-                })
+            //NT use Position from CSS
         },
 
         show: function () {
             var onShow = this.opts.onShow;
-
+ 
             this.setPosition(this.opts.position);
             this.$datepicker.addClass('active');
             this.visible = true;
@@ -813,11 +762,7 @@
         hide: function () {
             var onHide = this.opts.onHide;
 
-            this.$datepicker
-                .removeClass('active')
-                .css({
-                    left: '-100000px'
-                });
+            this.$datepicker.removeClass('active');
 
             this.focused = '';
             this.keys = [];
