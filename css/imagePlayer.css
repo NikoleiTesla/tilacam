@@ -160,10 +160,22 @@ html, body {
 }
 
 .tilaMenuItem{
-   padding: 8px 10px;
+   padding: 9px 10px;
    font-family: 'Fire Sans', sans-serif;   
    font-size: 16px;   
    -webkit-font-smoothing: antialiased; 
+}
+
+.tilaMenuItemSmall{
+   padding: 3px 10px;
+   font-family: 'Fire Sans', sans-serif;   
+   font-size: 14px;
+   text-align: right;   
+   -webkit-font-smoothing: antialiased; 
+}
+
+.tilaMenuItemSmall:hover{
+    background: rgba(255,255,255,0.15);
 }
 
 .tilaMenuItem:hover{

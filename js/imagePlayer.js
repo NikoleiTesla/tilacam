@@ -7,7 +7,10 @@ var dayPictures = [];
 var days = [];
 var currentDay = 0;
 var currentPicture = 0;
+var playerSpeed = 1;
 var pictureDelay = 1500;
+var origPictureDelay = pictureDelay;
+
 var lastDayChangeAction = "";
 
 var started = false;
@@ -49,7 +52,7 @@ function getAvailableDays() {
                 console.log("JSON getAvailableDays: ");
                 $.each(json, function (key, val) {
                     days.push(key);
-                    console.log("day: " + key + " pictures: " + val);
+                    //console.log("day: " + key + " pictures: " + val);
                 });
                 console.log("Days count: " + days.length);
                 currentDay = days.length - 1;
@@ -73,7 +76,7 @@ function getPicturesForCurrentDay() {
                 console.log("JSON getPicturesForDay: " + day);
                 $.each(json, function (key, val) {
                     dayPictures.push(val);
-                    console.log("day picture: " + val.name);
+                    //console.log("day picture: " + val.name);
                 });
                 console.log("Day Picture count: " + dayPictures.length);
                 updateSlider();
@@ -117,20 +120,19 @@ function stopIfStarted() {
 function tick() {
     start();        // restart the timer
 }
-;
 
 function start() {  // use a one-off timer
     playSlider();
     timer = setTimeout(tick, pictureDelay);
     started = true;
 }
-;
+
 
 function stop() {
     clearTimeout(timer);
     started = false;
 }
-;
+
 
 function playSlider() {
     displayImage();
@@ -203,69 +205,69 @@ function togglePlay() {
     }
 }
 
-function showDatePicker(){
+function showDatePicker() {
     var currentDate = new Date(days[currentDay]);
-    console.log('Set Datepicker to current Day: '+currentDate.toString());
-    if(tilaDatePicker === undefined){
-        tilaDatePicker = $( "#tilaHiddenDate" ).datepicker({
-        language: 'de',
-        startDate: currentDate,
-        onRenderCell: function (date, cellType) {
-            var currentDate = date.getDate();
-            if(tilaIsDateAvailable(date)){
-                return {html: currentDate + '<span class="dp-note"></span>'};
+    console.log('Set Datepicker to current Day: ' + currentDate.toString());
+    if (tilaDatePicker === undefined) {
+        tilaDatePicker = $("#tilaHiddenDate").datepicker({
+            language: 'de',
+            startDate: currentDate,
+            onRenderCell: function (date, cellType) {
+                var currentDate = date.getDate();
+                if (tilaIsDateAvailable(date)) {
+                    return {html: currentDate + '<span class="dp-note"></span>'};
+                }
+            },
+            onSelect: function onSelect(fd, date) {
+                console.log('Select Cell ' + fd);
+                tilaSetDate(date);
+                tilaDatePicker.data('datepicker').hide();
             }
-        },
-        onSelect: function onSelect(fd, date) {
-            console.log('Select Cell '+fd);
-            tilaSetDate(date);
-            tilaDatePicker.data('datepicker').hide();   
-        } 
-        });      
+        });
     }
     hideTilaMenu();
-    tilaDatePicker.data('datepicker').selectDate(currentDate);    
-    tilaDatePicker.data('datepicker').show();   
+    tilaDatePicker.data('datepicker').selectDate(currentDate);
+    tilaDatePicker.data('datepicker').show();
 }
 
-function tilaSetDate(date){
+function tilaSetDate(date) {
     console.log('Select Day');
-    for (let i=0; i<days.length; i++) {
-      var compareDate = new Date(days[i]);
-      if(compareDate.getDate() === date.getDate() &&
-         compareDate.getMonth() === date.getMonth() &&
-         compareDate.getFullYear() === date.getFullYear()){
-          currentDay = i;
-          console.log('Found day'+i);
-          changeDay("set");
-          return;
-      }
-    }    
+    for (let i = 0; i < days.length; i++) {
+        var compareDate = new Date(days[i]);
+        if (compareDate.getDate() === date.getDate() &&
+                compareDate.getMonth() === date.getMonth() &&
+                compareDate.getFullYear() === date.getFullYear()) {
+            currentDay = i;
+            console.log('Found day' + i);
+            changeDay("set");
+            return;
+        }
+    }
 }
 
-function tilaIsDateAvailable(date){
-  if(!(date instanceof Date))
-      return false;
+function tilaIsDateAvailable(date) {
+    if (!(date instanceof Date))
+        return false;
 
-  for (let i=0; i<days.length; i++) {
-      
-      var compareDate = new Date(days[i]);
-      if(compareDate.getDate() === date.getDate() &&
-         compareDate.getMonth() === date.getMonth() &&
-         compareDate.getFullYear() === date.getFullYear()){
-         console.log("!Date available "+date.toString());
+    for (let i = 0; i < days.length; i++) {
+
+        var compareDate = new Date(days[i]);
+        if (compareDate.getDate() === date.getDate() &&
+                compareDate.getMonth() === date.getMonth() &&
+                compareDate.getFullYear() === date.getFullYear()) {
+            console.log("!Date available " + date.toString());
             return true;
         }
     }
-    return false;    
+    return false;
 }
 
-function hideTilaMenu(){
-    $("#moreMenu").removeClass('tilaMenuShow');    
+function hideTilaMenu() {
+    $("#moreMenu").removeClass('tilaMenuShow');
 }
 
 function toggleMenu() {
-     $("#moreMenu").toggleClass("tilaMenuShow");        
+    $("#moreMenu").toggleClass("tilaMenuShow");
 }
 
 function initTilacam() {
@@ -283,6 +285,17 @@ function updateSlider() {
     currentImage = 0;
     displayImage();
     $('#timeSlider').rangeslider('update', true);
+}
+
+function showSpeedMenu(){
+    hideTilaMenu(); 
+    $("#speedMenu").addClass('tilaMenuShow');   
+}
+
+function setPlayerSpeed(factor){
+   pictureDelay = Math.floor(origPictureDelay/factor);
+   $("#speedMenu").removeClass('tilaMenuShow'); 
+   console.log("Set delay to: "+pictureDelay);
 }
 
 function initSlider() {
@@ -345,7 +358,7 @@ function toggleFullScreen() {
     if (!document.fullscreenElement && // alternative standard method
             !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
         $("#fullscreenToggle").text("fullscreen_exit");
-        isFullscreen=true;
+        isFullscreen = true;
         if (element.requestFullscreen) {
             element.requestFullscreen();
         } else if (element.msRequestFullscreen) {
@@ -357,7 +370,7 @@ function toggleFullScreen() {
         }
     } else {
         $("#fullscreenToggle").text("fullscreen");
-        isfullscreen=false;
+        isfullscreen = false;
         if (document.exitFullscreen) {
             document.exitFullscreen();
         } else if (document.msExitFullscreen) {
@@ -368,7 +381,7 @@ function toggleFullScreen() {
             document.webkitExitFullscreen();
         }
     }
-    fitPicture();    
+    fitPicture();
 }
 
 window.addEventListener("resize", fitPicture);
@@ -379,8 +392,8 @@ function fitPicture() {
     var windowWidth = window.innerWidth;
     var windowHeight = window.innerHeight;
 
-    
-     console.log("Viewport width Picture x"+windowWidth+" y "+windowHeight);  
+
+    console.log("Viewport width Picture x" + windowWidth + " y " + windowHeight);
     var newWidth;
     var newHeight;
     if (windowWidth >= windowHeight * originalRatio) {
@@ -401,8 +414,8 @@ function fitPicture() {
 }
 
 var supportsOrientationChange = "onorientationchange" in window,
-    orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+        orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 
-window.addEventListener(orientationEvent, function() {
+window.addEventListener(orientationEvent, function () {
     fitPicture();
 }, false);
