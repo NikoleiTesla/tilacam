@@ -17,7 +17,8 @@ html, body {
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;    
+    user-select: none;
+    font-family: 'Fire Sans', sans-serif;
 }
 
 #imagePlayer {
@@ -36,7 +37,7 @@ html, body {
     left: 0;
     position: absolute;
     opacity: 1;
-    transition: opacity 1s;    
+    transition: opacity 1s;
 }
 
 #topImage.fadeout {
@@ -45,9 +46,9 @@ html, body {
 
 #bottomImage {
     left:0;
-    position: absolute;   
+    position: absolute;
     transition: opacity 1s;
-    opacity: 0;    
+    opacity: 0;
 }
 
 #bottomImage.fadein {
@@ -65,15 +66,15 @@ html, body {
 }
 
 .cp-table{
-    display: table;     
-} 
+    display: table;
+}
 
 .cp-row {
-    display: table-row; 
+    display: table-row;
 }
 
 .cp-cell {
-    display: table-cell; 
+    display: table-cell;
     vertical-align: middle;
 }
 
@@ -93,22 +94,28 @@ html, body {
     cursor: pointer;
 }
 
+.tilaMenuItem .tilaIcons {
+  font-size:24px;
+  margin:0 5px 0 0;
+  vertical-align: bottom;
+}
+
 #pictureInfo{
-    font-family: 'Fire Sans', sans-serif;    
+    font-family: 'Fire Sans', sans-serif;
     color:white;
     font-size: 14px;
-    padding-top: 20px;  
+    padding-top: 20px;
     padding-left: 45px;
-    -webkit-font-smoothing: antialiased;   
+    -webkit-font-smoothing: antialiased;
     cursor: pointer;
-} 
+}
 
 .navContainer {
     position: absolute;
     width: 15%;
     text-align: center;
     z-index: 4;
-    height: 100%;   
+    height: 100%;
     cursor: pointer;
     transition: 0.3s;
     opacity: 0.5;
@@ -127,7 +134,7 @@ html, body {
 .tilaLeft{
     left:0px;
     text-align: left;
-    padding-left: 10px;    
+    padding-left: 10px;
 }
 
 .tilaRight{
@@ -136,7 +143,7 @@ html, body {
     padding-right: 10px;
 }
 
-.tilaMenu{   
+.tilaMenu{
    position: absolute;
    right: 15px;
    bottom: 40px;
@@ -155,23 +162,23 @@ html, body {
 }
 
 .tilaMenuShow{
-   height: 150px;
+   height: auto;
    opacity: 1;
 }
 
 .tilaMenuItem{
    padding: 9px 10px;
-   font-family: 'Fire Sans', sans-serif;   
-   font-size: 16px;   
-   -webkit-font-smoothing: antialiased; 
+   font-family: 'Fire Sans', sans-serif;
+   font-size: 16px;
+   -webkit-font-smoothing: antialiased;
 }
 
 .tilaMenuItemSmall{
    padding: 3px 10px;
-   font-family: 'Fire Sans', sans-serif;   
+   font-family: 'Fire Sans', sans-serif;
    font-size: 14px;
-   text-align: right;   
-   -webkit-font-smoothing: antialiased; 
+   text-align: right;
+   -webkit-font-smoothing: antialiased;
 }
 
 .tilaMenuItemSmall:hover{
@@ -194,5 +201,5 @@ html, body {
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
     cursor: pointer;
-    -webkit-text-stroke: 2px black;   
+    -webkit-text-stroke: 2px black;
 }
