@@ -182,15 +182,29 @@
   opacity: 0;
   right: 15px;
   bottom: 40px;
-  transition: 0.4s ease;    
-  z-index: 100; 
+  transition: 0.4s ease;
+  z-index: 100;
   overflow:hidden;
 }
-
-  .datepicker.active {
+.datepicker.active {
     opacity: 1;
     width: 250px;
   }
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+  .datepicker {
+  background: rgba(0,0,0,0.8);  
+   right:0;
+   top:0;
+   position:fixed;
+  }
+  .datepicker.active {
+    width:100%;
+  }
+}
+
+
 
 .datepicker-inline .datepicker {
   border-color: #d7d7d7;
