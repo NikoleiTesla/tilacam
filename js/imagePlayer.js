@@ -215,8 +215,7 @@ function showDatePicker() {
             language: 'de',
             startDate: currentDate,
             onRenderCell: function (date, cellType) {
-                var currentDate = date.getDate();
-                console.log('Render '+date.toString()+" cell "+cellType.toString());
+                //console.log('Render '+date.toString()+" cell "+cellType.toString());
                 if (tilaIsDateAvailable(date,cellType)) {
                     return {append: '<span class="dp-note"></span>'};
                 }

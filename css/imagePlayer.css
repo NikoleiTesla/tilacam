@@ -95,7 +95,7 @@ html, body {
 }
 
 .tilaMenuItem .tilaIcons {
-  font-size:24px;
+  font-size: 20px;
   margin:0 5px 0 0;
   vertical-align: bottom;
 }
@@ -162,7 +162,7 @@ html, body {
 }
 
 .tilaMenuShow{
-   height: auto;
+   height: 160px;
    opacity: 1;
 }
 
@@ -174,7 +174,7 @@ html, body {
 }
 
 .tilaMenuItemSmall{
-   padding: 3px 10px;
+   padding: 4px 10px;
    font-family: 'Fire Sans', sans-serif;
    font-size: 14px;
    text-align: right;
