@@ -23,8 +23,8 @@
     <body onload="initTilacam()">
         <div id="imagePlayer">
             <div id="sizeDiv">
-                <img id="topImage" src="empty.gif" onclick="togglePlay()">
-                <img id="bottomImage" src="empty.gif" onclick="togglePlay()">
+                <img id="topImage" src="empty.gif">
+                <img id="bottomImage" src="empty.gif">
                 <div class="navContainer tilaLeft" onclick="previousPicture()"><div class="navIconContainer "><i class="navigationIcons">navigate_before</i></div></div>
                 <div class="navContainer tilaRight" onclick="nextPicture()"><div class="navIconContainer"><i class="navigationIcons">navigate_next</i></div></div>
                 <div id="controlPlayer">
@@ -49,18 +49,18 @@
                     </div>
                 </div>
                 <div id="moreMenu" class="tilaMenu">
-                    <div class="tilaMenuItem" onclick="showDatePicker()"><span class="tilaIcons">calendar_today</span> Tag &auml;ndern</span><input id="tilaHiddenDate" type="text" style="display: none"></div>
+                    <div class="tilaMenuItem" onclick="showDatePicker()"><span class="tilaIcons">calendar_today</span> Tag &auml;ndern<input id="tilaHiddenDate" type="text" style="display: none"></div>
                     <div class="tilaMenuItem" onclick="showSpeedMenu()"><span class="tilaIcons">shutter_speed</span> Geschwindigkeit</div>
                     <div class="tilaMenuItem"><span class="tilaIcons">file_download</span> Download</div>
                     <div class="tilaMenuItem"><span class="tilaIcons">videocam</span> Film erstellen</div>
                 </div>
                 <div id="speedMenu" class="tilaMenu" style="width: 100px">
-                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.25)">0,25</div>
-                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.5)">0,50</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.25)">1/4</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.5)">1/2</div>
                     <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(1)">Standard</div>
-                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(2)">2</div>
-                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(4)">4</div>
-                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(8)">8</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(2)">2x</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(4)">4x</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(8)">8x</div>
                 </div>
                 <div id="datepicker-inline" class=""></div>
             </div>
