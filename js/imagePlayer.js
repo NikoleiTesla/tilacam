@@ -25,6 +25,8 @@ var isFullscreen = false;
 var tilaDatePicker;
 
 var opc = 0;
+var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+          
 
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
@@ -214,8 +216,9 @@ function showDatePicker() {
             startDate: currentDate,
             onRenderCell: function (date, cellType) {
                 var currentDate = date.getDate();
-                if (tilaIsDateAvailable(date)) {
-                    return {html: currentDate + '<span class="dp-note"></span>'};
+                console.log('Render '+date.toString()+" cell "+cellType.toString());
+                if (tilaIsDateAvailable(date,cellType)) {
+                    return {append: '<span class="dp-note"></span>'};
                 }
             },
             onSelect: function onSelect(fd, date) {
@@ -245,19 +248,34 @@ function tilaSetDate(date) {
     }
 }
 
-function tilaIsDateAvailable(date) {
+function tilaIsDateAvailable(date,cellType) {
     if (!(date instanceof Date))
         return false;
 
     for (let i = 0; i < days.length; i++) {
 
         var compareDate = new Date(days[i]);
-        if (compareDate.getDate() === date.getDate() &&
+        if(cellType ==='day'){
+            if (compareDate.getDate() === date.getDate() &&
                 compareDate.getMonth() === date.getMonth() &&
                 compareDate.getFullYear() === date.getFullYear()) {
-            console.log("!Date available " + date.toString());
-            return true;
+                //console.log("!Date available " + date.toString());
+                return true;
+            }
         }
+        if(cellType ==='month'){
+            if (compareDate.getMonth() === date.getMonth() &&
+                compareDate.getFullYear() === date.getFullYear()) {
+                //console.log("!Date available " + date.toString());
+                return true;
+            }
+        }  
+        if(cellType ==='year'){
+            if (compareDate.getFullYear() === date.getFullYear()) {
+                //console.log("!Date available " + date.toString());
+                return true;
+            }
+        }         
     }
     return false;
 }
