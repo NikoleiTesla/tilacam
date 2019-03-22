@@ -1527,7 +1527,11 @@
 
             if (opts.onRenderCell) {
                 render = opts.onRenderCell(date, type) || {};
-                html = render.html ? render.html : html;
+                if(render.append){
+                    html += render.append;
+                } else {
+                    html = render.html ? render.html : html;
+                }
                 classes += render.classes ? ' ' + render.classes : '';
             }
 
