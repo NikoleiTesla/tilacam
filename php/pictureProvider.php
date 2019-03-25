@@ -18,12 +18,12 @@ class PictureProvider
   public function getAllPictures(){
     $pics = glob($this->getPictureDir().'/*');
     $picturesToSort = array();
-    if(count($pics) == 0){
+    if(count($pics) === 0){
       throw new Exception("Fehler im Bilder Ordner ".$this->getPictureDir()." wurden keine Bider gefunden!");
     }
     foreach ($pics as $p) {
       $picture = new Picture($p);
-      if($this->IsValidTime($picture)){
+      if($this->IsValidTime($picture) && $this->isValidDay($picture)){
          $picturesToSort[$picture->timestamp] = $picture;
       }
     }
@@ -69,6 +69,19 @@ class PictureProvider
     $this->pictures = $pictures;
   }
 
+  private function isValidDay($picture){
+      global $config_ignoreDays;
+      if (empty($config_ignoreDays)) {
+            return true;
+        }
+      $dow = date("N",$picture->timestamp);
+      if (in_array($dow, $config_ignoreDays)) {
+            return false;
+        }
+
+        return true;
+  }
+  
   private function IsValidTime($picture){
       global $config_dayStartHour;
       global $config_dayendHour;
