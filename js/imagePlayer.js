@@ -227,7 +227,7 @@ function showDatePicker() {
             }
         });
     }
-    hideTilaMenu();
+    hideMainMenu();
     tilaDatePicker.data('datepicker').selectDate(currentDate);
     tilaDatePicker.data('datepicker').show();
 }
@@ -279,12 +279,22 @@ function tilaIsDateAvailable(date,cellType) {
     return false;
 }
 
-function hideTilaMenu() {
+function hideSubMenu(){
+    $("#speedMenu").removeClass('tilaMenuShow');
+}
+
+function hideMainMenu() {
     $("#moreMenu").removeClass('tilaMenuShow');
 }
 
-function toggleMenu() {
-    $("#moreMenu").toggleClass("tilaMenuShow");
+function showMainMenu() {
+    $("#moreMenu").addClass("tilaMenuShow");
+    hideSubMenu();
+}
+
+function showSpeedMenu(){
+    $("#speedMenu").addClass('tilaMenuShow'); 
+    hideMainMenu();
 }
 
 function initTilacam() {
@@ -302,11 +312,6 @@ function updateSlider() {
     currentImage = 0;
     displayImage();
     $('#timeSlider').rangeslider('update', true);
-}
-
-function showSpeedMenu(){
-    hideTilaMenu(); 
-    $("#speedMenu").addClass('tilaMenuShow');   
 }
 
 function setPlayerSpeed(factor){
