@@ -51,7 +51,7 @@
                 <div id="moreMenu" class="tilaMenu">
                     <div class="tilaMenuItem" onclick="showDatePicker()"><span class="tilaIcons">calendar_today</span> Tag &auml;ndern<input id="tilaHiddenDate" type="text" style="display: none"></div>
                     <div class="tilaMenuItem" onclick="showSpeedMenu()"><span class="tilaIcons">shutter_speed</span> Geschwindigkeit</div>
-                    <div class="tilaMenuItem"><span class="tilaIcons">file_download</span> Download</div>
+                    <div class="tilaMenuItem" onclick="downloadCurrentPicture()"><span class="tilaIcons">file_download</span> Download</div>
                     <div class="tilaMenuItem"><span class="tilaIcons">videocam</span> Film erstellen</div>
                 </div>
                 <div id="speedMenu" class="tilaMenu" style="width: 100px">
@@ -65,5 +65,6 @@
                 <div id="datepicker-inline" class=""></div>
             </div>
         </div>
+        <a  style="display: none" id="tilaDownload" href="" download></a>
     </body>
 </html>

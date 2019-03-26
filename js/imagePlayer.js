@@ -320,6 +320,11 @@ function setPlayerSpeed(factor){
    console.log("Set delay to: "+pictureDelay);
 }
 
+function downloadCurrentPicture(){
+   $('#tilaDownload').attr("href", dayPictures[currentPicture].name);
+   $('#tilaDownload')[0].click(); //[0] dom object instead of jquery
+}
+
 function initSlider() {
 
     $('#timeSlider').rangeslider({
@@ -374,6 +379,7 @@ function initSlider() {
         }
     });
 }
+
 
 function toggleFullScreen() {
     var element = document.getElementById('imagePlayer');
