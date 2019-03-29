@@ -22,6 +22,8 @@ class videoCreator {
 
     private $pictures = array();
     private $maxPictures;
+    private $picturePrefix ='';
+    private $createdVideoFile = '';
     
    function __construct($pictureProvider)
    {
@@ -37,22 +39,80 @@ class videoCreator {
    }
    
    function createDayVideo(){
-       $this->selectPictures();       
+       $this->picturePrefix = 'day';
+       $this->selectPictures();  
+       $this->createVideo();
+       return $this->createdVideoFile;
    }
    
    function createWeekVideo(){
+       $this->picturePrefix = 'week';
        $week = new DateInterval('P7D');        
        $this->startDate->sub($week); 
        $this->selectPictures();
+       $this->createVideo();
+       return $this->createdVideoFile;
    }
   
    function createMonthVideo(){
+       $this->picturePrefix = 'month';
        $month = new DateInterval('P30D');        
        $this->startDate->sub($month); 
        $this->selectPictures();
+       $this->createVideo();
+       return $this->createdVideoFile;
    }   
    
-  private function selectPictures(){ 
+   function createCompleteVideo(){
+       $this->picturePrefix = 'all';
+       $this->pictureProvider->getAllPictures();
+       $this->reducePicutres();     
+       $this->createVideo();
+       return $this->createdVideoFile;
+   }
+   
+   private function createVideo(){
+       global $config_pathToFFmpeg;
+       global $config_videoDir;       
+       if($this->copyPictures()){
+         $outputFile = $_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/video_'.$this->picturePrefix.'.mp4';    
+         $command = $config_pathToFFmpeg.' -f image2 -r 25 -i "'.$_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/'.$this->picturePrefix.'_%05d.jpg" -vcodec libx264 -b 2000k -tune stillimage "'.$outputFile.'"'; 
+         DebugMessage("Create Video: ".$command); 
+         exec($command);
+         $this->createdVideoFile = $config_videoDir.'/video_'.$this->picturePrefix.'.mp4';
+         $this->cleanup();
+       }
+   }   
+   
+   private function copyPictures(){
+       global $config_videoDir;
+       $i = 0;
+       foreach ($this->pictures as $p){
+        $fpn = sprintf("%05d",$i);
+        $sourceFile = $_SERVER['DOCUMENT_ROOT'].''.$p->name;
+        $destFile = $_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/'.$this->picturePrefix.'_'.$fpn.'.jpg';
+        copy($sourceFile,$destFile);
+        DebugMessage('copy: '.$sourceFile.' > '.$destFile);
+        $i++;
+       }
+       if($i > 0){
+          return true;
+       }
+       return false;
+   }
+   
+   private function cleanup(){
+       global $config_videoDir;       
+       $i=0;
+       foreach ($this->pictures as $p){
+        $fpn = sprintf("%05d",$i);
+        $delteFile = $_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/'.$this->picturePrefix.'_'.$fpn.'.jpg';
+        unlink($delteFile);
+        $i++;
+       }
+   }
+
+   private function selectPictures(){ 
     $select = $this->pictureProvider->getAllPictures();
     //Sart to day Start
     $this->startDate->setTime(0, 0, 0);
@@ -62,11 +122,25 @@ class videoCreator {
     /* @var $p Picture */
     foreach ($select as $p) {
         if ($p->dateTime >= $this->startDate && $p->dateTime <= $this->endDate){ 
-            //echo "put to selected pics ".$p->dateTime;
             array_push($this->pictures,$p);
         }
-    }
-    DebugMessage ('selected Pictures = '.count($this->pictures));    
+    }   
+    DebugMessage ('selected Pictures = '.count($this->pictures)); 
+    $this->reducePicutres();
   }
    
+  private function reducePicutres(){
+    if($this->maxPictures >0 && count($this->pictures) > $this->maxPictures){
+        $ratio = count($this->pictures) / $this->maxPictures;  //reduce pictures to fit defined length
+        DebugMessage('More pictures found than defined in max Pictures '.$this->maxPictures.' / '.count($this->pictures).' ratio '.$ratio);
+        $tempArray = array();
+        for($i=0;$i<$this->maxPictures;$i++){
+            $newIndex = floor($i*$ratio);
+            array_push($tempArray,$this->pictures[$newIndex]);
+            DebugMessage(' -> add Index '.$newIndex);
+        }
+        $this->pictures = $tempArray;
+    }      
+  }
+  
 }

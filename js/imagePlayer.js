@@ -281,6 +281,7 @@ function tilaIsDateAvailable(date,cellType) {
 
 function hideSubMenu(){
     $("#speedMenu").removeClass('tilaMenuShow');
+    $("#videoMenu").removeClass('tilaMenuShow'); 
 }
 
 function hideMainMenu() {
@@ -295,6 +296,16 @@ function showMainMenu() {
 function showSpeedMenu(){
     $("#speedMenu").addClass('tilaMenuShow'); 
     hideMainMenu();
+}
+
+function showVideoMenu(){
+     $("#videoMenu").addClass('tilaMenuShow'); 
+    hideMainMenu();   
+}
+
+function createVideo(){
+    //ajax call to php file that creates the video and returns the filename
+    
 }
 
 function initTilacam() {

@@ -12,6 +12,10 @@ $vc->createWeekVideo();
 $vc->createMonthVideo();
 
 function DebugMessage($message){
+  Global $config_debug;
+  if (!$config_debug)
+    return;
+  
   if(is_array($message)){
     echo "<pre>";
     var_dump($message);
