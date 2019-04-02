@@ -234,7 +234,8 @@ function showDatePicker() {
 
 function tilaSetDate(date) {
     console.log('Select Day');
-    for (let i = 0; i < days.length; i++) {
+    var i=0;
+    for (i = 0; i < days.length; i++) {
         var compareDate = new Date(days[i]);
         if (compareDate.getDate() === date.getDate() &&
                 compareDate.getMonth() === date.getMonth() &&
@@ -251,7 +252,8 @@ function tilaIsDateAvailable(date,cellType) {
     if (!(date instanceof Date))
         return false;
 
-    for (let i = 0; i < days.length; i++) {
+    var i=0;
+    for (i = 0; i < days.length; i++) {
 
         var compareDate = new Date(days[i]);
         if(cellType ==='day'){
