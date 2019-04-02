@@ -7,14 +7,15 @@ $pp = new PictureProvider();
 $vc = new videoCreator($pp);
 $enddate = new DateTime('2017-10-02');
 $vc->setDate($enddate);
-$vc->createDayVideo();
-$vc->createWeekVideo();
-$vc->createMonthVideo();
+//$vc->createDayVideo();
+//$vc->createWeekVideo();
+//$vc->createMonthVideo();
+$vc->createCompleteVideo();
 
 function DebugMessage($message){
   Global $config_debug;
-  if (!$config_debug)
-    return;
+//  if (!$config_debug)
+//    return;
   
   if(is_array($message)){
     echo "<pre>";

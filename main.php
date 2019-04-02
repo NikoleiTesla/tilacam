@@ -1,11 +1,13 @@
 <?php
-require_once("./php/config.php");
-require_once("./php/pictureProvider.php");
+require_once("php/config.php");
+require_once("php/pictureProvider.php");
+require_once("php/videoCreator.php");
 
 $actionAvailableDays = "getAvailableDays";
 $actionAllPictures = "getAllPictures";
 $actionFirstPicture = "getFirstPicture";
 $actionPictureForDay ="getPicturesForDay";
+$actionCreateVideo = "createVideo";
 
 $pp = new PictureProvider();
 //always get all pictures (could be optimized with a cache)
@@ -25,6 +27,8 @@ if(array_key_exists('action',$_REQUEST))
   $action = strip_tags($_REQUEST['action']);
 if(array_key_exists('day',$_REQUEST))
   $day = strip_tags($_REQUEST['day']);
+if(array_key_exists('mode',$_REQUEST))
+  $mode = strip_tags($_REQUEST['mode']);
 
 if($action==$actionAllPictures){
   jsonOutput($allPictures);
@@ -34,6 +38,25 @@ if($action==$actionAllPictures){
   jsonOutput($pp->getAvailableDays());
 } else if($action==$actionPictureForDay){
   jsonOutput($pp->getPicturesForDay($day));
+} else if($action==$actionCreateVideo){
+    $videoPP = new PictureProvider();
+    $vc = new videoCreator($videoPP);
+    $enddate = new DateTime($day);
+    $vc->setDate($enddate);
+    $videofile = '';
+    if ($mode == 'day') {
+        $videofile = $vc->createDayVideo();
+    }
+    if ($mode == 'week') {
+        $videofile = $vc->createWeekVideo();
+    }
+    if ($mode == 'month') {
+        $videofile = $vc->createMonthVideo();
+    }
+    if ($mode == 'all') {
+        $videofile = $vc->createCompleteVideo();
+    }    
+    echo $videofile;
 } else {
   DebugMessage('Action: '.$action.' is not defined');
 }

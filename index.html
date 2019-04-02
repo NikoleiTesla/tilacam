@@ -48,6 +48,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="videoInfoContainer" class="tilaMenu" style="width:200px; height: 45px">
+                   <div id="videoInfo" class="tilaMenuItem" onclick="downloadMovie()">info</div>
+                </div>                  
                 <div id="moreMenu" class="tilaMenu">
                     <div class="tilaMenuItem" onclick="showDatePicker()"><span class="tilaIcons">calendar_today</span> Tag &auml;ndern<input id="tilaHiddenDate" type="text" style="display: none"></div>
                     <div class="tilaMenuItem" onclick="showSpeedMenu()"><span class="tilaIcons">shutter_speed</span> Geschwindigkeit</div>
@@ -62,13 +65,13 @@
                     <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(4)">4x</div>
                     <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(8)">8x</div>
                 </div>
-                <div id="videoMenu" class="tilaMenu" style="width: 200px">
+                <div id="videoMenu" class="tilaMenu" style="width: 150px">
                     <div class="tilaMenuItem" onclick="createVideo('day')">ein Tag</div>
                     <div class="tilaMenuItem" onclick="createVideo('week')">eine Woche</div>
                     <div class="tilaMenuItem" onclick="createVideo('month')">ein Monat</div>
                     <div class="tilaMenuItem" onclick="createVideo('all')">Gesamt</div>
                 </div>                
-                
+
                 <div id="datepicker-inline" class=""></div>
             </div>
         </div>

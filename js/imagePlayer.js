@@ -26,7 +26,7 @@ var tilaDatePicker;
 
 var opc = 0;
 var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-          
+var movieURI ="";          
 
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
@@ -303,9 +303,29 @@ function showVideoMenu(){
     hideMainMenu();   
 }
 
-function createVideo(){
+function createVideo(createMode){
+    movieURI = "";
+    hideSubMenu();
+    $("#videoInfoContainer").addClass('tilaMenuShow');    
+    $("#videoInfo").text("Film wird erstelt...");
+    var day = days[currentDay];
+    console.log('Create Video: '+createMode+' enddate: '+day+'')
     //ajax call to php file that creates the video and returns the filename
-    
+     $.get( serviceAddress, {action: "createVideo", mode: createMode, day: day} )
+    .done(function( data ) {
+        movieURI = data;
+        console.log('Create Video finished: '+data);
+        $("#videoInfo").text("Film ansehen");
+    });  
+}
+
+function downloadMovie(){
+   if (movieURI === '') 
+       return;
+   
+   $("#videoInfoContainer").removeClass('tilaMenuShow');      
+   $('#tilaDownload').attr("href", movieURI);
+   $('#tilaDownload')[0].click(); //[0] dom object instead of jquery
 }
 
 function initTilacam() {
@@ -390,7 +410,6 @@ function initSlider() {
         }
     });
 }
-
 
 function toggleFullScreen() {
     var element = document.getElementById('imagePlayer');
