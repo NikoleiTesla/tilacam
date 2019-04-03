@@ -235,7 +235,7 @@ function showDatePicker() {
 function tilaSetDate(date) {
     console.log('Select Day');
     for (let i = 0; i < days.length; i++) {
-        var compareDate = new Date(days[i]);
+        var compareDate = parseDate(days[i]);
         if (compareDate.getDate() === date.getDate() &&
                 compareDate.getMonth() === date.getMonth() &&
                 compareDate.getFullYear() === date.getFullYear()) {
@@ -253,7 +253,7 @@ function tilaIsDateAvailable(date,cellType) {
 
     for (let i = 0; i < days.length; i++) {
 
-        var compareDate = new Date(days[i]);
+        var compareDate = parseDate(days[i]);
         if(cellType ==='day'){
             if (compareDate.getDate() === date.getDate() &&
                 compareDate.getMonth() === date.getMonth() &&
@@ -375,9 +375,9 @@ function initSlider() {
             var lastPicture = dayPictures[dayPictures.length - 1];
             var totalText = lastPicture.hour + ':' + lastPicture.minute;
             var pictureDate = dayPictures[currentPicture].formatedDateTime;
-            var pd = new Date(pictureDate);
+            var pd = parseDate(pictureDate);
             var dateOptions = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-            var dateText = pd.toLocaleDateString("de-AT", dateOptions);
+            var dateText = pd.toLocaleDateString("de", dateOptions);
             $("#pictureInfo").text(dateText + ' ' + timeText + ' / ' + totalText);
         },
 
@@ -391,6 +391,30 @@ function initSlider() {
     });
 }
 
+function parseDate(stringDate){
+    var containsTime = stringDate.indexOf(" ") >0;
+    var datepart = stringDate;
+    var timepart ='';
+    var newDate = new Date();
+    if(containsTime){
+        datepart = stringDate.split(" ")[0];
+        timepart = stringDate.split(" ")[1];
+    }
+    var dateSplit = datepart.split("-");
+    newDate.setYear(dateSplit[0]);
+    newDate.setMonth(dateSplit[1]-1);
+    newDate.setDate(dateSplit[2]);
+    if(containsTime){
+        var timeSplit = timepart.split(":");
+        newDate.setHours(timeSplit[0]);
+        newDate.setMinutes(timeSplit[1]);
+        newDate.setSeconds(timeSplit[2]);
+    }     
+    var parsedDate = newDate;
+    //var parsedDate = new Date(stringDate);
+    //console.log('Parse date: '+stringDate+' parsedDate '+parsedDate.toJSON());
+    return parsedDate;
+}
 
 function toggleFullScreen() {
     var element = document.getElementById('imagePlayer');
