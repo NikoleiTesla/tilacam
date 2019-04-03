@@ -26,7 +26,8 @@ var tilaDatePicker;
 
 var opc = 0;
 var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-          
+var movieURI ="";          
+
 
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
@@ -234,8 +235,9 @@ function showDatePicker() {
 
 function tilaSetDate(date) {
     console.log('Select Day');
-    for (let i = 0; i < days.length; i++) {
-        var compareDate = parseDate(days[i]);
+    var i=0;
+    for (i = 0; i < days.length; i++) {
+        var compareDate = new Date(days[i]);
         if (compareDate.getDate() === date.getDate() &&
                 compareDate.getMonth() === date.getMonth() &&
                 compareDate.getFullYear() === date.getFullYear()) {
@@ -251,7 +253,8 @@ function tilaIsDateAvailable(date,cellType) {
     if (!(date instanceof Date))
         return false;
 
-    for (let i = 0; i < days.length; i++) {
+    var i=0;
+    for (i = 0; i < days.length; i++) {
 
         var compareDate = parseDate(days[i]);
         if(cellType ==='day'){
@@ -303,9 +306,29 @@ function showVideoMenu(){
     hideMainMenu();   
 }
 
-function createVideo(){
+function createVideo(createMode){
+    movieURI = "";
+    hideSubMenu();
+    $("#videoInfoContainer").addClass('tilaMenuShow');    
+    $("#videoInfo").text("Film wird erstelt...");
+    var day = days[currentDay];
+    console.log('Create Video: '+createMode+' enddate: '+day+'')
     //ajax call to php file that creates the video and returns the filename
-    
+     $.get( serviceAddress, {action: "createVideo", mode: createMode, day: day} )
+    .done(function( data ) {
+        movieURI = data;
+        console.log('Create Video finished: '+data);
+        $("#videoInfo").text("Film ansehen");
+    });  
+}
+
+function downloadMovie(){
+   if (movieURI === '') 
+       return;
+   
+   $("#videoInfoContainer").removeClass('tilaMenuShow');      
+   $('#tilaDownload').attr("href", movieURI);
+   $('#tilaDownload')[0].click(); //[0] dom object instead of jquery
 }
 
 function initTilacam() {

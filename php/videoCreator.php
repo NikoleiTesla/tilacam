@@ -65,7 +65,7 @@ class videoCreator {
    
    function createCompleteVideo(){
        $this->picturePrefix = 'all';
-       $this->pictureProvider->getAllPictures();
+       $this->pictures = $this->pictureProvider->getAllPictures();
        $this->reducePicutres();     
        $this->createVideo();
        return $this->createdVideoFile;
@@ -76,7 +76,7 @@ class videoCreator {
        global $config_videoDir;       
        if($this->copyPictures()){
          $outputFile = $_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/video_'.$this->picturePrefix.'.mp4';    
-         $command = $config_pathToFFmpeg.' -f image2 -r 25 -i "'.$_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/'.$this->picturePrefix.'_%05d.jpg" -vcodec libx264 -b 2000k -tune stillimage "'.$outputFile.'"'; 
+         $command = $config_pathToFFmpeg.' -f image2 -r 25 -i "'.$_SERVER['DOCUMENT_ROOT'].$config_videoDir.'/'.$this->picturePrefix.'_%05d.jpg" -vcodec libx264 -b 5000k -tune stillimage "'.$outputFile.'"'; 
          DebugMessage("Create Video: ".$command); 
          exec($command);
          $this->createdVideoFile = $config_videoDir.'/video_'.$this->picturePrefix.'.mp4';
