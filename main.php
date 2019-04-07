@@ -1,7 +1,7 @@
 <?php
-require_once("php/config.php");
-require_once("php/pictureProvider.php");
-require_once("php/videoCreator.php");
+require_once(__DIR__."/php/config.php");
+require_once(__DIR__."/php/pictureProvider.php");
+require_once(__DIR__."/php/videoCreator.php");
 
 $actionAvailableDays = "getAvailableDays";
 $actionAllPictures = "getAllPictures";

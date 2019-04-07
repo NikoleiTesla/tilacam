@@ -1,6 +1,6 @@
 <?php
-require_once('config.php');
-require_once('picture.php');
+require_once(__DIR__.'/config.php');
+require_once(__DIR__.'/picture.php');
 /**
  *
  */
@@ -16,13 +16,16 @@ class PictureProvider
   }
 
   public function getAllPictures(){
-    $pics = glob($this->getPictureDir().'/*');
+    $protocol = $this->getHttpProtocol();
+    $pics = new DirectoryIterator($this->getPictureDir());  //faster and bettern than glob 
+    //$pics = glob($this->getPictureDir().'/*.jpg');
     $picturesToSort = array();
-    if(count($pics) === 0){
-      throw new Exception("Fehler im Bilder Ordner ".$this->getPictureDir()." wurden keine Bider gefunden!");
-    }
+    
+    //if(count($pics) === 0){
+    //  throw new Exception("Fehler im Bilder Ordner ".$this->getPictureDir()." wurden keine Bider gefunden!");
+    // }
     foreach ($pics as $p) {
-      $picture = new Picture($p);
+      $picture = new Picture($p,$protocol);
       if($this->IsValidTime($picture) && $this->isValidDay($picture)){
          $picturesToSort[$picture->timestamp] = $picture;
       }
@@ -98,6 +101,15 @@ class PictureProvider
     $instalDir = $_SERVER['DOCUMENT_ROOT'];
     $pictureDir = $instalDir."".$config_pictureDir;
     return $pictureDir;
+  }
+  
+  function getHttpProtocol(){
+    if(array_key_exists("HTTPS", $_SERVER) && $_SERVER["HTTPS"] == "on"){
+        $protocol = "https://";
+    } else {
+        $protocol = "http://";
+    } 
+    return $protocol;
   }
 
 }

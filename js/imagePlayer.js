@@ -21,6 +21,7 @@ var picturesWidth = 1920;
 var picturesHeight = 1080;
 
 var imageBuffer = [];
+var imageBufferSize = 25;
 var isFullscreen = false;
 var tilaDatePicker;
 
@@ -32,13 +33,13 @@ var movieURI ="";
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
             .done(function (json) {
-                console.log("JSON FirstPicture: " + json.name);
+                console.log("JSON FirstPicture: " + json.webPath);
                 firstImage = new Image();
                 firstImage.onload = function () {
                     picturesHeight = firstImage.naturalHeight;
                     picturesWidth = firstImage.naturalWidth;
                     fitPicture();
-                    $(topImageContainer).attr("src", json.name);
+                    $(topImageContainer).attr("src", json.webPath);
                 }
                 firstImage.src = json.name;
 
@@ -161,15 +162,15 @@ function displayImage() {
 
     if (opc > 0) {
         if (opc % 2 === 0) {
-            $(bottomImageContainer).attr('src', dayPictures[currentPicture].name);
+            $(bottomImageContainer).attr('src', dayPictures[currentPicture].webPath);
             $(bottomImageContainer).addClass('fadein');
         } else {
-            $(topImageContainer).attr('src', dayPictures[currentPicture].name);
+            $(topImageContainer).attr('src', dayPictures[currentPicture].webPath);
             $(bottomImageContainer).removeClass('fadein');
         }
     }
 
-    console.log("Play Picture " + currentPicture + " " + dayPictures[currentPicture].name);
+    console.log("Play Picture " + currentPicture + " " + dayPictures[currentPicture].webPath);
 
     opc++;
 }
