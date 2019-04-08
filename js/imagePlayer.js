@@ -38,8 +38,10 @@ function displayFirstPicture() {
                 firstImage.onload = function () {
                     picturesHeight = firstImage.naturalHeight;
                     picturesWidth = firstImage.naturalWidth;
-                    fitPicture();
-                    $(topImageContainer).attr("src", json.webPath);
+                    fitPicture();                    
+                    displayImage();
+                    currentPicture++;                    
+                    //$(topImageContainer).attr("src", json.webPath);
                 }
                 firstImage.src = json.name;
 
