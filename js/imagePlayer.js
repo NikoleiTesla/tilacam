@@ -22,13 +22,14 @@ var picturesHeight = 1080;
 
 var imageBuffer = [];
 var imageBufferSize = 25;
+var currentCacheNo = 0;
+
 var isFullscreen = false;
 var tilaDatePicker;
 
 var opc = 0;
 var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 var movieURI ="";          
-
 
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
@@ -75,7 +76,8 @@ function getPicturesForCurrentDay() {
     if (isStarted)
         stop();
     dayPictures = [];
-    imageBuffer = [];
+    clearCache();
+    
     var day = days[currentDay];
     $.getJSON(serviceAddress, {action: "getPicturesForDay", day: day})
             .done(function (json) {
@@ -85,6 +87,7 @@ function getPicturesForCurrentDay() {
                     //console.log("day picture: " + val.name);
                 });
                 console.log("Day Picture count: " + dayPictures.length);
+                fillCache();
                 updateSlider();
                 if (lastDayChangeAction == "next") {
                     currentPicture = 0;
@@ -160,6 +163,7 @@ function displayImage() {
     if (dayPictures[currentPicture] === undefined)
         return;
 
+    fillCache();    
     $('#timeSlider').val(currentPicture + 1).change();
 
     if (opc > 0) {
@@ -471,6 +475,14 @@ function toggleFullScreen() {
         }
     }
     fitPicture();
+}
+
+function clearCache(){
+    
+}
+
+function fillCache(){
+    
 }
 
 window.addEventListener("resize", fitPicture);
