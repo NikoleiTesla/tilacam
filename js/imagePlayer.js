@@ -21,8 +21,9 @@ var picturesWidth = 1920;
 var picturesHeight = 1080;
 
 var imageBuffer = [];
-var imageBufferSize = 25;
+var imageBufferMaxSize = 25;
 var currentCacheNo = 0;
+var imageBufferSize = imageBufferMaxSize;
 
 var isFullscreen = false;
 var tilaDatePicker;
@@ -30,6 +31,23 @@ var tilaDatePicker;
 var opc = 0;
 var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 var movieURI ="";          
+
+function fillImageCache() {
+    for(var i=0;i<imageBufferSize;i++){        
+        cacheImage(currentCacheNo+i);     
+    }
+    currentCacheNo+=i;        
+}
+
+function cacheImage(imageNo){
+    if (imageBufferSize === 0 || imageBufferSize >= dayPictures.length)
+        return;
+    imageBufferSize -=1;    
+    var img = new Image();
+    img.src = dayPictures[imageNo].webPath;
+    console.log("Caching Image: "+imageNo);
+}
+
 
 function displayFirstPicture() {
     $.getJSON(serviceAddress, {action: "getFirstPicture"})
@@ -76,7 +94,6 @@ function getPicturesForCurrentDay() {
     if (isStarted)
         stop();
     dayPictures = [];
-    clearCache();
     
     var day = days[currentDay];
     $.getJSON(serviceAddress, {action: "getPicturesForDay", day: day})
@@ -87,7 +104,6 @@ function getPicturesForCurrentDay() {
                     //console.log("day picture: " + val.name);
                 });
                 console.log("Day Picture count: " + dayPictures.length);
-                fillCache();
                 updateSlider();
                 if (lastDayChangeAction == "next") {
                     currentPicture = 0;
@@ -162,8 +178,8 @@ function displayImage() {
 
     if (dayPictures[currentPicture] === undefined)
         return;
-
-    fillCache();    
+    imageBufferSize+=1;
+    fillImageCache();    
     $('#timeSlider').val(currentPicture + 1).change();
 
     if (opc > 0) {
@@ -195,6 +211,7 @@ function changeDay(direction) {
 
     currentPicture = 0;
     getPicturesForCurrentDay();
+  
 }
 
 function tilacamPlay() {
@@ -352,6 +369,8 @@ function updateSlider() {
     $('#timeSlider').val(1).change();
     currentImage = 0;
     displayImage();
+    fillImageCache();
+    clearCache();     
     $('#timeSlider').rangeslider('update', true);
 }
 
@@ -415,6 +434,8 @@ function initSlider() {
         onSlideEnd: function (position, value) {
             currentPicture = value - 1;
             displayImage();
+            clearCache();
+            fillImageCache();
             if (started)
                 start();
         }
@@ -478,11 +499,8 @@ function toggleFullScreen() {
 }
 
 function clearCache(){
-    
-}
-
-function fillCache(){
-    
+    imageBufferSize = imageBufferMaxSize;
+    currentCacheNo = 0;
 }
 
 window.addEventListener("resize", fitPicture);
