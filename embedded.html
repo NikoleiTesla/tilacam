@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Just for Testing real UI needs to be implemented -->
+
+<html>
+    <head>
+        <title>Tilacam</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" href="css/imagePlayer.css"/>
+        <link rel="stylesheet" href="css/rangeslider.css"/>
+        <link rel="stylesheet" href="css/datepicker.css"/>
+
+        <link  href="https://fonts.googleapis.com/icon?family=Material+Icons|Fira+Sans|Lilita+One" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+
+        <script src="js/rangeslider.js"></script>
+        <script src="js/imagePlayer.js"></script>
+        <script src="js/datepicker.js"></script>
+        <script src="js/i18n/datepicker.de.js"></script>
+
+    </head>
+    <body>
+        <br><br>
+    <div style="width:100%;   display: flex;  align-items: center;  justify-content: center;">
+            
+        <div id="tilacamDiv" style="width: 80%"></div>
+    </div>
+    <script type="text/javascript">
+        function setupTilacam(){
+            serviceAddress = "https://app.samburu.at/tilacam/main.php";
+        }
+   </script>        
+    </body>
+</html>

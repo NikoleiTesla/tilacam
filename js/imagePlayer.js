@@ -30,7 +30,11 @@ var tilaDatePicker;
 
 var opc = 0;
 var monthsShort = ['Jan', 'Feb', 'M&auml;r', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-var movieURI ="";          
+var movieURI ="";
+var embeddedDiv;
+var isEmbedded;
+
+var autoResizeImage=true;
 
 function fillImageCache() {
     for(var i=0;i<imageBufferSize;i++){        
@@ -506,10 +510,22 @@ function clearCache(){
 window.addEventListener("resize", fitPicture);
 
 function fitPicture() {
+    if (!autoResizeImage)
+        return;
+    
     var originalRatio = picturesWidth / picturesHeight;
     // console.log("Orig Picture x"+picturesWidth+" y "+picturesHeight+" ratio "+originalRatio);    
+    
     var windowWidth = window.innerWidth;
     var windowHeight = window.innerHeight;
+    if(isEmbedded){
+        console.log('Use Embedded div size');
+        windowWidth = $('#tilacamDiv').width();
+        if(windowWidth <200)
+            windowWidth = 200;
+        
+        windowHeight = windowWidth/originalRatio;
+    }
 
 
     console.log("Viewport width Picture x" + windowWidth + " y " + windowHeight);
@@ -538,3 +554,77 @@ var supportsOrientationChange = "onorientationchange" in window,
 window.addEventListener(orientationEvent, function () {
     fitPicture();
 }, false);
+
+//automatic generate Tilacam Player
+window.onload = function(){
+    var functionName = 'setupTilacam';
+    try {
+        setupTilacam();
+        buildTilacamPlayer();
+    } catch (e) {        
+     console.log('No setupTilacam funtion found.');
+    }
+    initTilacam();    
+}
+
+function buildTilacamPlayer(){
+    var html = ` 
+        <div id="imagePlayer">
+            <div id="sizeDiv">
+                <img id="topImage" src="empty.gif">
+                <img id="bottomImage" src="empty.gif">
+                <div class="navContainer tilaLeft" onclick="previousPicture()"><div class="navIconContainer "><i class="navigationIcons">navigate_before</i></div></div>
+                <div class="navContainer tilaRight" onclick="nextPicture()"><div class="navIconContainer"><i class="navigationIcons">navigate_next</i></div></div>
+                <div id="controlPlayer">
+                    <div id="pictureInfo" onclick="showDatePicker()">info</div>
+                    <div class="cp-table" style="width: 100%">
+                        <div class="cp-row">
+                            <div class="cp-cell">
+                                <i id="playPause" class="tilaIcons" onclick="togglePlay()">play_arrow</i>
+                            </div>
+                            <div class="cp-cell" style="width: 100%">
+                                <div class="rangeslider-wrap">
+                                    <input id="timeSlider" type="range" min="1" max="100" step="1" value="1">
+                                </div>
+                            </div>
+                            <div class="cp-cell" onclick="showMainMenu()">
+                                <i class="tilaIcons">more_vert</i>
+                            </div>
+                            <div class="cp-cell">
+                                <i id="fullscreenToggle" class="tilaIcons" onclick="toggleFullScreen()">fullscreen</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="videoInfoContainer" class="tilaMenu" style="width:200px; height: 45px">
+                   <div id="videoInfo" class="tilaMenuItem" onclick="downloadMovie()">info</div>
+                </div>                  
+                <div id="moreMenu" class="tilaMenu">
+                    <div class="tilaMenuItem" onclick="showDatePicker()"><span class="tilaIcons">calendar_today</span> Tag &auml;ndern<input id="tilaHiddenDate" type="text" style="display: none"></div>
+                    <div class="tilaMenuItem" onclick="showSpeedMenu()"><span class="tilaIcons">shutter_speed</span> Geschwindigkeit</div>
+                    <div class="tilaMenuItem" onclick="downloadCurrentPicture()"><span class="tilaIcons">file_download</span> Download</div>
+                    <div class="tilaMenuItem" onclick="showVideoMenu()"><span class="tilaIcons">videocam</span> Film erstellen</div>
+                </div>
+                <div id="speedMenu" class="tilaMenu" style="width: 100px">
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.25)">1/4</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(0.5)">1/2</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(1)">Standard</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(2)">2x</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(4)">4x</div>
+                    <div class="tilaMenuItemSmall" onclick="setPlayerSpeed(8)">8x</div>
+                </div>
+                <div id="videoMenu" class="tilaMenu" style="width: 150px">
+                    <div class="tilaMenuItem" onclick="createVideo('day')">ein Tag</div>
+                    <div class="tilaMenuItem" onclick="createVideo('week')">eine Woche</div>
+                    <div class="tilaMenuItem" onclick="createVideo('month')">ein Monat</div>
+                    <div class="tilaMenuItem" onclick="createVideo('all')">Gesamt</div>
+                </div>                
+
+                <div id="datepicker-inline" class=""></div>
+            </div>
+        </div>
+        <a  style="display: none" id="tilaDownload" href="" download></a>            
+        `;
+    $('#tilacamDiv').html(html);    
+    isEmbedded = true;
+}

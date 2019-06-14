@@ -76,9 +76,10 @@ foreach($days as $key => $val){
 */
 
 function jsonOutput($object){
-  $result = json_encode($object);
+  $result = json_encode($object); 
   DebugMessage("Json encode: ".$result);
   header('Content-type: application/json');
+  header("Access-Control-Allow-Origin: *"); //Cross Domain warning can be used by anyone    
   echo $result;
 }
 
