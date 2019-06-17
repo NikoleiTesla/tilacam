@@ -44,7 +44,7 @@ function fillImageCache() {
 }
 
 function cacheImage(imageNo){
-    if (imageBufferSize === 0 || imageBufferSize >= dayPictures.length)
+    if (imageBufferSize === 0 || imageNo >= dayPictures.length)
         return;
     imageBufferSize -=1;    
     var img = new Image();
